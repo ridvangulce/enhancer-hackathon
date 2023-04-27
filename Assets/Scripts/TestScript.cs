@@ -10,6 +10,7 @@ public class TestScript : MonoBehaviour
 
         Debug.Log("test");
         Debug.Log("test2");
+        Debug.Log("aısdjalflkajfsj");
 
 
     }
