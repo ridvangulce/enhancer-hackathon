@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <list default="true" id="774609e3-4c28-42ab-924f-a840789a43ff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Enhancer-Hackathon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Enhancer-Hackathon/.idea/workspace.xml" afterDir="false" />
@@ -9,11 +10,15 @@
 >>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestScript.cs" afterDir="false" />
     </list>
+=======
+    <list default="true" id="774609e3-4c28-42ab-924f-a840789a43ff" name="Changes" comment="" />
+>>>>>>> main
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -67,4 +72,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
 >>>>>>> Stashed changes
+=======
+  <component name="TaskManager">
+    <servers />
+  </component>
+>>>>>>> main
 </project>
