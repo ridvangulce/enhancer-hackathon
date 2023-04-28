@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
+    [SerializeField] private GameObject _loadingText;
+    [SerializeField] private float _timer;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        _loadingText.SetActive(false);
     }
 
     // Update is called once per frame
-    void Update()
+
+
+    public IEnumerator Timer()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            animator.SetBool("isStart", true);
-        }
+        animator.SetBool("isStart", true);
+        
+        yield return new WaitForSeconds(_timer);
+        _loadingText.SetActive(true);
     }
 }
