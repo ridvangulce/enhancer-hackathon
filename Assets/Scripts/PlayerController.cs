@@ -6,24 +6,29 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed;
+    Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
 
-        rb.MovePosition(new Vector2(x, 0));
+       
 
         if (Input.GetKey(KeyCode.A))
         {
-
+            animator.SetBool(0, true);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-
+            animator.SetBool(0,true);
+        }
+        else
+        {
+            animator.SetBool(0, false);
         }
     }
 }
