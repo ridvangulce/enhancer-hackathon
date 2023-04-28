@@ -3,7 +3,22 @@ guid: 03ed92bda6e4dc34eaa05f6037747667
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Keyboard
+    second: {fileID: 2100000, guid: bcef9502d62724345aa96b9aa5286844, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Laptop
+    second: {fileID: 2100000, guid: 6a9a9c69b1fed21469050558837fdc50, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screen
+    second: {fileID: 2100000, guid: ca526cd177bc89640978b324f785d253, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
