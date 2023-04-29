@@ -17,10 +17,10 @@ public class PlayerController : MonoBehaviour
     float gainX, gainY, gainZ, gammaX, gammaY, gammaZ, liftX, liftY, liftZ;
     public Rigidbody2D rb;
     Animator animator;
-    public Vector2 movement;
     public Transform videoSquareTexture;
     public GameObject enemyExplosion, playerExplosion;
     private int _jumpCounter;
+    [HideInInspector] public bool isOver;
 
     void Start()
     {
@@ -71,6 +71,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("LimitLine"))
+        {
+            isOver = true;
+            Debug.Log("is Over");
+        }
+
         if (collision.gameObject.CompareTag("destroyText"))
         {
             playerExplosion.SetActive(true);
@@ -107,16 +113,6 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator FlashEffect()
     {
-        // LiftGammaGain liftGammaGain = VolumeManager.instance.stack.GetComponent<LiftGammaGain>();
-        // liftGammaGain.gain =
-        //     new Vector4Parameter(new Vector4(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0),
-        //         true);
-        // liftGammaGain.gamma =
-        //     new Vector4Parameter(new Vector4(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0),
-        //         true);
-        // liftGammaGain.lift =
-        //     new Vector4Parameter(new Vector4(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0),
-        //         true);
         LiftGammaGain liftGammaGain = VolumeManager.instance.stack.GetComponent<LiftGammaGain>();
         liftGammaGain.active = true;
         float timer = 0f;
