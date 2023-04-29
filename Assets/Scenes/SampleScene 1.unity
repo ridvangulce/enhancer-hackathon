@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.13917658, g: 0.15181553, b: 0.1472147, a: 1}
+  m_IndirectSpecularColor: {r: 0.13917625, g: 0.15181515, b: 0.14721425, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1659764186}
   _videoPlayer: {fileID: 1208236566}
-  _timer: 5
+  _timer: 8
 --- !u!4 &138344397
 Transform:
   m_ObjectHideFlags: 0
@@ -3242,7 +3242,7 @@ VideoPlayer:
   m_RenderMode: 3
   m_AspectRatio: 2
   m_DataSource: 0
-  m_PlaybackSpeed: 2.81
+  m_PlaybackSpeed: 1.8
   m_AudioOutputMode: 2
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
@@ -7381,7 +7381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5778452694265997897}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 2.173, y: 2.2103424, z: 3.989}
+  m_LocalPosition: {x: 3.43, y: 2.2103424, z: 3.989}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
