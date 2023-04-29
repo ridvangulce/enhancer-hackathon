@@ -1,26 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class CameraController : MonoBehaviour
 {
     public Animator animator;
-    [SerializeField] private GameObject _loadingText;
+    [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private float _timer;
 
     void Start()
     {
-        _loadingText.SetActive(false);
+        _videoPlayer.Stop();
     }
-
-    // Update is called once per frame
-
-
     public IEnumerator Timer()
     {
         animator.SetBool("isStart", true);
-        
+
+        _videoPlayer.Play();
         yield return new WaitForSeconds(_timer);
-        _loadingText.SetActive(true);
     }
 }
