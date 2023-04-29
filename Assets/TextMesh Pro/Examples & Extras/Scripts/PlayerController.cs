@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
+            SoundManager.Instance.oneShotAudioSource.clip = SoundManager.Instance.classicLoopSound;
+            SoundManager.Instance.loopAudioSource.clip = SoundManager.Instance.classicLoopSound;
             SoundManager.Instance.loopAudioSource.Play();
         }
     }
@@ -237,6 +239,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         SoundManager.Instance.StopOneShot();
     }
+
     IEnumerator LowLoopSound()
     {
         SoundManager.Instance.loopAudioSource.volume = 0.3f;

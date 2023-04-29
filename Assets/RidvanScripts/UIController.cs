@@ -13,6 +13,7 @@ namespace Assets.RidvanScripts
         public void StartGame()
         {
             _panel.SetActive(false);
+            StartCoroutine(ComputerErrorMusic());
             StartCoroutine(_cameraController.Timer());
         }
 
@@ -28,8 +29,17 @@ namespace Assets.RidvanScripts
             anim.SetBool("isCredit", true);
             yield return new WaitForSeconds(11f);
             _creditsPanel.SetActive(false);
+        }
 
-            
+        IEnumerator ComputerErrorMusic()
+        {
+            yield return new WaitForSeconds(3f);
+            SoundManager.Instance.StopLoop();
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.computingSound);
+            yield return new WaitForSeconds(6f);
+            SoundManager.Instance.StopOneShot();
+            SoundManager.Instance.oneShotAudioSource.clip = SoundManager.Instance.classicLoopSound;
+            SoundManager.Instance.loopAudioSource.clip = SoundManager.Instance.classicLoopSound;
         }
     }
 }

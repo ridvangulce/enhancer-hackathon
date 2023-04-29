@@ -7,7 +7,17 @@ public class SoundManager : MonoBehaviour
     public AudioSource oneShotAudioSource;
     public AudioSource loopAudioSource;
 
-    public AudioClip playerDeathSound, enemyDeathSound, loseSound, winSound, hackSound, rotateSound, jumpSound;
+    public AudioClip introLoopSound,
+        classicLoopSound,
+        playerDeathSound,
+        enemyDeathSound,
+        loseSound,
+        winSound,
+        hackSound,
+        rotateSound,
+        jumpSound,
+        computingSound;
+
     private void Awake()
     {
         loopAudioSource.mute = false;
@@ -21,13 +31,13 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
     public void PlayOneShot(AudioClip clip)
     {
         oneShotAudioSource.PlayOneShot(clip);
     }
+
     public void StopOneShot()
     {
         oneShotAudioSource.Stop();
