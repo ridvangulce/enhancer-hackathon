@@ -25,7 +25,7 @@ public class DestroyBullet : MonoBehaviour
 
     IEnumerator Destroy()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
 }
