@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,51 +22,58 @@ public class PlayerController : MonoBehaviour
     public GameObject enemyExplosion, playerExplosion;
     private int _jumpCounter;
     [HideInInspector] public bool isOver;
+    public GameObject timeline;
+    public bool canMove;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        timeline.SetActive(false);
+        canMove = true;
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (canMove)
         {
-            animator.SetBool("isRunning", true);
-            Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
-            transform.localScale = xScale;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            animator.SetBool("isRunning", true);
-            Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
-            transform.localScale = xScale;
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetBool("isRunning", true);
+                Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+                transform.localScale = xScale;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetBool("isRunning", true);
+                Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+                transform.localScale = xScale;
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
 
-        // Move player horizontally
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+            // Move player horizontally
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 
-        // Jump when the player presses the spacebar and is grounded
-        if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            _jumpCounter++;
-        }
+            // Jump when the player presses the spacebar and is grounded
+            if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                _jumpCounter++;
+            }
 
-        // Check if the player is in the air and disable jumping until they land on the ground again
-        if (!isGrounded)
-        {
-            canJump = false;
-        }
-        else
-        {
-            canJump = true;
+            // Check if the player is in the air and disable jumping until they land on the ground again
+            if (!isGrounded)
+            {
+                canJump = false;
+            }
+            else
+            {
+                canJump = true;
+            }
         }
     }
 
@@ -109,6 +117,20 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+        if(collision.gameObject.name == "GameEnd")
+        {
+            StartCoroutine(GameEnd());
+            timeline.SetActive(true);
+            timeline.GetComponent<PlayableDirector>().Play();
+            Destroy(collision.gameObject);
+        }
+    }
+
+    IEnumerator GameEnd()
+    {
+        yield return new WaitForSeconds(1f);
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.winSound);
+        canMove = false;
     }
 
     IEnumerator FlashEffect()
