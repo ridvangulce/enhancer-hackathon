@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     Animator animator;
     public Vector2 movement;
-    public Transform camHolder;
+    public Transform videoSquareTexture;
     public GameObject enemyExplosion, playerExplosion;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "camRotater")
         {
-            Camera.main.transform.DORotate(new Vector3(0, 0, 180), 1f).SetEase(Ease.InExpo);
+            Camera.main.transform.DORotate(new Vector3(0, 0, collision.gameObject.transform.rotation.z), 1f).SetEase(Ease.InExpo);
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("destroyText"))
@@ -81,10 +83,26 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.name == "turretRange")
         {
-            Debug.Log("�arp�������t�mmm");
             GameManager.Instance.StartCoroutine(GameManager.Instance.SendDestroyTexts());
             Destroy(collision.gameObject);
         }
+        if(collision.gameObject.name == "triggerHack")
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(VideoHack());
+        }
+    }
+    IEnumerator VideoHack()
+    {
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(0.41f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = false; yield return new WaitForSeconds(0.3f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = true; yield return new WaitForSeconds(0.1f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = false; yield return new WaitForSeconds(0.5f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = true; yield return new WaitForSeconds(0.2f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = false; yield return new WaitForSeconds(0.8f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = true; yield return new WaitForSeconds(0.3f);
+        videoSquareTexture.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
