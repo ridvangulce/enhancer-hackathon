@@ -40,10 +40,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
         }
-    }
-
-    private void FixedUpdate()
-    {
         // Move player horizontally
         float moveHorizontal = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
@@ -68,7 +64,7 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "camRotater")
@@ -85,7 +81,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.name == "turretRange")
         {
-            Debug.Log("çarpýþþþþþþtýmmm");
+            Debug.Log("ï¿½arpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½mmm");
             GameManager.Instance.StartCoroutine(GameManager.Instance.SendDestroyTexts());
             Destroy(collision.gameObject);
         }
