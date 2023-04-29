@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Scripts/DropdownSample.cs.meta
+guid: 6d94496a08c444f428e12e509842ec62
+========
+guid: 7568517eabc36e749aae0f0071839de9
+>>>>>>>> mechanics:Assets/TextMesh Pro/Examples & Extras/Scripts/CamMove.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

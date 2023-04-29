@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 6522f30e342599e4e9dd4cc2cc03c830
+<<<<<<<< HEAD:Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF - Sunny Days.mat.meta
+guid: 1a4ab4c5ff72cc647b07187e51b409a3
+========
+guid: 59b66e1956031654985c136e6927a7d8
+>>>>>>>> mechanics:Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr aura rays hdr ab nosp.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

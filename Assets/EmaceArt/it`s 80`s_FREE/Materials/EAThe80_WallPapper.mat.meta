@@ -1,8 +1,15 @@
 fileFormatVersion: 2
-guid: a9c17321fff9041d489f792e0b0458b3
+<<<<<<<< HEAD:Assets/EmaceArt/it`s 80`s_FREE/Materials/EAThe80_WallPapper.mat.meta
+guid: 0835dd0d72930ed458ee9f596e2e27dc
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+========
+guid: 1667ce493244eca42bcdb41c562372ff
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+>>>>>>>> mechanics:Assets/talhAnims/Cherries_0.controller.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
