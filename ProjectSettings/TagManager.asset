@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - destroyText
+  - Ground
+  - Hacks
+  - LimitLine
   layers:
   - Default
   - TransparentFX

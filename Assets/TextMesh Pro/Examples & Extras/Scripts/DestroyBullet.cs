@@ -6,17 +6,26 @@ using DG.Tweening;
 public class DestroyBullet : MonoBehaviour
 {
     public Transform target;
+    private Vector3 targetTransform;
     public float speed = 0.01f;
 
     private void Start()
     {
+        target = GameObject.Find("Player").transform;
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        targetTransform = target.position;
+        StartCoroutine(Destroy());
     }
 
     void Update()
     {
-        target = GameObject.Find("Player").transform;
-        transform.position = Vector3.Slerp(transform.position, new Vector3(target.position.x, target.position.y, 10), speed);
+        transform.position = Vector3.Slerp(transform.position, new Vector3(targetTransform.x, targetTransform.y, 10), speed);
 
+    }
+
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }

@@ -6,9 +6,28 @@ public class CamMove : MonoBehaviour
 {
     public Transform target;
     public float cameraSpeed;
+    private PlayerController _playerController;
+    public GameObject gameOverCanvas;
+
+    void Start()
+    {
+        _playerController = target.transform.GetComponent<PlayerController>();
+    }
 
     void Update()
     {
-        transform.position = Vector3.Slerp(transform.position, new Vector3(target.position.x, 1, 0), cameraSpeed);
+        if (_playerController != null)
+        {
+            if (!_playerController.isOver)
+            {
+                transform.position = Vector3.Slerp(transform.position,
+                    new Vector3(target.position.x, target.position.y, 0),
+                    cameraSpeed);
+            }
+            else
+            {
+                gameOverCanvas.SetActive(true);
+            }
+        }
     }
 }
