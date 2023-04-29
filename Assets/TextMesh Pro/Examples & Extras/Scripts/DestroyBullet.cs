@@ -14,11 +14,18 @@ public class DestroyBullet : MonoBehaviour
         target = GameObject.Find("Player").transform;
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         targetTransform = target.position;
+        StartCoroutine(Destroy());
     }
 
     void Update()
     {
         transform.position = Vector3.Slerp(transform.position, new Vector3(targetTransform.x, targetTransform.y, 10), speed);
 
+    }
+
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
