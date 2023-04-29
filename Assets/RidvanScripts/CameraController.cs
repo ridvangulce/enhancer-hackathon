@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
-
+using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     public Animator animator;
@@ -19,5 +19,7 @@ public class CameraController : MonoBehaviour
 
         _videoPlayer.Play();
         yield return new WaitForSeconds(_timer);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 }

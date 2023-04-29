@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1659764186}
   _videoPlayer: {fileID: 1208236566}
-  _timer: 2
+  _timer: 5
 --- !u!4 &138344397
 Transform:
   m_ObjectHideFlags: 0
