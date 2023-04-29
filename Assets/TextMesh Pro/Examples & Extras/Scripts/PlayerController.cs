@@ -71,7 +71,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "camRotater")
         {
-            Camera.main.transform.DORotate(new Vector3(0, 0, collision.gameObject.transform.rotation.z), 1f).SetEase(Ease.InExpo);
+            float zRot = collision.gameObject.transform.localEulerAngles.z;
+            Debug.Log("z rot: " + collision.gameObject.transform.localEulerAngles.z);
+            Camera.main.transform.DORotate(new Vector3(0, 0, zRot), 1f).SetEase(Ease.InExpo);
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("destroyText"))
