@@ -945,7 +945,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 133.23
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 133.23
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3351,13 +3351,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 101
+  m_fontSize: 97.15
   m_fontSizeBase: 36.48
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 133.23
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3527,7 +3527,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 133.23
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6268,6 +6268,7 @@ GameObject:
   - component: {fileID: 1593944875}
   - component: {fileID: 1593944874}
   - component: {fileID: 1593944876}
+  - component: {fileID: 1593944877}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -6350,6 +6351,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1593944877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593944873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5f43691371e42f095fe23c9fe8005d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1643120103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7545,6 +7558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2140405264}
   - component: {fileID: 2140405263}
+  - component: {fileID: 2140405265}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -7606,3 +7620,15 @@ Transform:
   m_Father: {fileID: 1659764188}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 4.157, y: 0, z: 0}
+--- !u!114 &2140405265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140405262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5f43691371e42f095fe23c9fe8005d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

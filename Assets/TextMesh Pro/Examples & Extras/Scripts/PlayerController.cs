@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 8f; // Jump force
     [SerializeField] private Transform groundCheck; // Transform object to check if the player is grounded
     [SerializeField] private LayerMask groundLayer; // Layer mask for the ground objects
-    public bool isGrounded, canJump; // Boolean to check if the player is grounded
-    private float groundCheckRadius = 0.1f; // Radius of the ground check sphere
+    [SerializeField] private ParticleSystem _particleSystem; // Layer mask for the ground objects
+    [SerializeField] private GameObject _particleSystemObject; // Layer mask for the ground objects
+    [SerializeField] private GameObject _finishCanvas;
+    [SerializeField] private GameObject _gameOverCanvas;
     float gainX, gainY, gainZ, gammaX, gammaY, gammaZ, liftX, liftY, liftZ;
     public Rigidbody2D rb;
     Animator animator;
@@ -25,55 +27,54 @@ public class PlayerController : MonoBehaviour
     public GameObject timeline;
     public bool canMove;
 
+    void Awake()
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.loopAudioSource.Play();
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
         timeline.SetActive(false);
         canMove = true;
     }
 
     void Update()
     {
-        if (canMove)
+        if (Input.GetKey(KeyCode.A))
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                animator.SetBool("isRunning", true);
-                Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
-                transform.localScale = xScale;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                animator.SetBool("isRunning", true);
-                Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
-                transform.localScale = xScale;
-            }
-            else
-            {
-                animator.SetBool("isRunning", false);
-            }
+            animator.SetBool("isRunning", true);
+            Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+            transform.localScale = xScale;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("isRunning", true);
+            Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+            transform.localScale = xScale;
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            CancelInvoke("SpawnParticleEffect");
+        }
 
-            // Move player horizontally
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 
-            // Jump when the player presses the spacebar and is grounded
-            if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                _jumpCounter++;
-            }
+        // Move player horizontally
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 
-            // Check if the player is in the air and disable jumping until they land on the ground again
-            if (!isGrounded)
-            {
-                canJump = false;
-            }
-            else
-            {
-                canJump = true;
-            }
+        // Jump when the player presses the spacebar and is grounded
+        if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
+        {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.jumpSound);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            _jumpCounter++;
         }
     }
 
@@ -82,15 +83,23 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("LimitLine"))
         {
             isOver = true;
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.playerDeathSound);
+            StartCoroutine(MuteLoopSound());
+
             Debug.Log("is Over");
         }
 
         if (collision.gameObject.CompareTag("destroyText"))
         {
+            isOver = true;
+            StartCoroutine(MuteLoopSound());
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.playerDeathSound);
             playerExplosion.SetActive(true);
             playerExplosion.transform.position = transform.position;
-            GameManager.Instance.StartCoroutine(GameManager.Instance.RestartGame());
-            Destroy(gameObject);
+            _finishCanvas.SetActive(false);
+            _gameOverCanvas.SetActive(true);
+            CapsuleCollider2D capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+            capsuleCollider2D.enabled = false;
         }
 
         if (collision.gameObject.name == "turretRange")
@@ -106,10 +115,14 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.name == "FlashEffect")
             {
                 StartCoroutine(FlashEffect());
+                StartCoroutine(LowLoopSound());
+                StartCoroutine(LowHackSound());
             }
             else if (collision.gameObject.name == "camRotater")
             {
                 float zRot = collision.gameObject.transform.localEulerAngles.z;
+                StartCoroutine(LowLoopSound());
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.rotateSound);
                 Debug.Log("z rot: " + collision.gameObject.transform.localEulerAngles.z);
                 Camera.main.transform.DORotate(new Vector3(0, 0, zRot), 1f).SetEase(Ease.InExpo);
                 Destroy(collision.gameObject);
@@ -117,7 +130,8 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.name == "GameEnd")
+
+        if (collision.gameObject.name == "GameEnd")
         {
             StartCoroutine(GameEnd());
             timeline.SetActive(true);
@@ -126,9 +140,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Spiked Ball")
+        {
+            enemyExplosion.SetActive(true);
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.enemyDeathSound);
+
+            enemyExplosion.transform.position = collision.transform.position;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _jumpCounter = 0;
+            if (animator.GetBool("isRunning"))
+            {
+                _particleSystemObject.SetActive(true);
+                _particleSystem.Play();
+            }
+            else
+            {
+                _particleSystemObject.SetActive(false);
+                _particleSystem.Stop();
+            }
+        }
+    }
+
     IEnumerator GameEnd()
     {
         yield return new WaitForSeconds(1f);
+        StartCoroutine(MuteLoopSound());
         SoundManager.Instance.PlayOneShot(SoundManager.Instance.winSound);
         canMove = false;
     }
@@ -188,18 +230,23 @@ public class PlayerController : MonoBehaviour
         videoSquareTexture.GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Spiked Ball")
-        {
-            enemyExplosion.SetActive(true);
-            enemyExplosion.transform.position = collision.transform.position;
-            Destroy(collision.gameObject);
-        }
 
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _jumpCounter = 0;
-        }
+    IEnumerator LowHackSound()
+    {
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.hackSound);
+        yield return new WaitForSeconds(5f);
+        SoundManager.Instance.StopOneShot();
+    }
+    IEnumerator LowLoopSound()
+    {
+        SoundManager.Instance.loopAudioSource.volume = 0.3f;
+        yield return new WaitForSeconds(4f);
+        SoundManager.Instance.loopAudioSource.volume = 1f;
+    }
+
+    IEnumerator MuteLoopSound()
+    {
+        SoundManager.Instance.loopAudioSource.volume = 0f;
+        yield return new WaitForSeconds(1f);
     }
 }

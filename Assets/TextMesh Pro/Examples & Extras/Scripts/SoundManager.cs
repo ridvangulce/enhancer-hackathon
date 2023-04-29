@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip playerDeathSound, enemyDeathSound, loseSound, winSound, hackSound, rotateSound, jumpSound;
     private void Awake()
     {
+        loopAudioSource.mute = false;
+        loopAudioSource.Play();
         if (Instance == null)
         {
             Instance = this;
@@ -19,11 +21,16 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
     public void PlayOneShot(AudioClip clip)
     {
         oneShotAudioSource.PlayOneShot(clip);
+    }
+    public void StopOneShot()
+    {
+        oneShotAudioSource.Stop();
     }
 
     public void PlayLoop(AudioClip clip)

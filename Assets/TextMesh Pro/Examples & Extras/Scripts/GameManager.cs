@@ -27,11 +27,14 @@ public class GameManager : MonoBehaviour
     public IEnumerator RestartGame()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SoundManager.Instance.loopAudioSource.Play();
+        SoundManager.Instance.loopAudioSource.volume = 1f;
     }
 }
