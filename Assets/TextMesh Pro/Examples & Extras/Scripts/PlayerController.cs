@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             playerExplosion.SetActive(true);
             playerExplosion.transform.position = transform.position;
+            GameManager.Instance.StartCoroutine(GameManager.Instance.RestartGame());
             Destroy(gameObject);
         }
         if (collision.gameObject.name == "turretRange")
