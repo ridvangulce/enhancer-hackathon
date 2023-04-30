@@ -48,36 +48,36 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            animator.SetBool("isRunning", true);
-            Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
-            transform.localScale = xScale;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            animator.SetBool("isRunning", true);
-            Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
-            transform.localScale = xScale;
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-            CancelInvoke("SpawnParticleEffect");
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetBool("isRunning", true);
+                Vector3 xScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+                transform.localScale = xScale;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetBool("isRunning", true);
+                Vector3 xScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+                transform.localScale = xScale;
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+                CancelInvoke("SpawnParticleEffect");
+            }
 
 
-        // Move player horizontally
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+            // Move player horizontally
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 
-        // Jump when the player presses the spacebar and is grounded
-        if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
-        {
-            SoundManager.Instance.PlayOneShot(SoundManager.Instance.jumpSound);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            _jumpCounter++;
-        }
+            // Jump when the player presses the spacebar and is grounded
+            if (Input.GetKeyDown(KeyCode.Space) && _jumpCounter <= 1)
+            {
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.jumpSound);
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                _jumpCounter++;
+            }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -166,6 +166,13 @@ public class PlayerController : MonoBehaviour
                 _particleSystemObject.SetActive(false);
                 _particleSystem.Stop();
             }
+        }
+
+        if (collision.gameObject.CompareTag("FallBox"))
+        {
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.gravityScale = 2f;
         }
     }
 

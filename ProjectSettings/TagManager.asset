@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Hacks
   - LimitLine
+  - FxTemporaire
+  - FallBox
   layers:
   - Default
   - TransparentFX
