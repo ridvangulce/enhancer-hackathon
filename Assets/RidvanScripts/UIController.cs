@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.RidvanScripts
 {
@@ -12,6 +13,9 @@ namespace Assets.RidvanScripts
 
         public void StartGame()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             _panel.SetActive(false);
             StartCoroutine(ComputerErrorMusic());
             StartCoroutine(_cameraController.Timer());
